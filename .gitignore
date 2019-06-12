@@ -1,0 +1,10 @@
+.idea/
+.DS_Store
+package-lock.json
+git.txt
+node_modules/
+dist/
+npm-debug.log
+static/uploadfiles
+test/unit/coverage/
+.history/

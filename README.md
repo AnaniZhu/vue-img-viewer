@@ -1,8 +1,8 @@
-# Vue-ImgPreview
+# Vue-img-viewer
 
 
-[![npm version](https://img.shields.io/npm/v/vue-imgPreview.svg?style=flat-square)](http://badge.fury.io/js/vue-imgPreview)
-[![npm license](https://img.shields.io/npm/l/vue-imgPreview.svg?style=flat-square)](http://badge.fury.io/js/vue-imgPreview)
+[![npm version](https://img.shields.io/npm/v/vue-img-viewer.svg?style=flat-square)](http://badge.fury.io/js/vue-img-viewer)
+[![npm license](https://img.shields.io/npm/l/vue-imgPreview.svg?style=flat-square)](http://badge.fury.io/js/vue-img-viewer)
 
 基于 Vue 的轻量级图片预览组件
 
@@ -18,7 +18,7 @@
 
 ```bash
 
-$ npm i vue-imgPreview -S
+$ npm i vue-img-viewer -S
 
 ```
 
@@ -30,14 +30,12 @@ main.js:
 
 import Vue from 'vue'
 import App from './App.vue'
-import ImagePreview from 'vue-imgPreview'
+import ImagePreview from 'vue-img-viewer'
 
 Vue.use(ImagePreview)
 
-Vue.use(VueLazyload)
-
 new Vue({
-  el: 'body',
+  el: '#app',
   components: {
     App
   }

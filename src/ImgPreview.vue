@@ -1,6 +1,6 @@
 <template>
   <div>
-    <transition name="el-fade-in">
+    <transition name="fade-in">
       <!-- 第一次打开后才渲染dom -->
       <div
         v-if="isFirstShow"
@@ -116,6 +116,10 @@ export default {
     filter: {
       type: Function,
       default: DEFAULT_FILTER_FUNCTION
+    },
+    closeOnPressEscape: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -211,6 +215,10 @@ export default {
       this.imgList = this.queryImgList()
       this.initImgList()
     }
+    window.addEventListener('keyup', this.handlePressESC)
+  },
+  beforeDestroy () {
+    window.removeEventListener('keyup', this.handlePressESC)
   },
   // 插槽子元素变化时，重新初始化
   updated () {
@@ -360,12 +368,28 @@ export default {
         this.$emit('update:visible', false)
       }
       this.resetImage()
+    },
+    handlePressESC (e) {
+      let {keyCode, code} = e
+      if (this.visible && (keyCode === 27 || code === 'Escape')) {
+        this.close()
+      }
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+.fade-in-enter-active,
+.fade-in-leave-active {
+  transition: opacity 0.25s;
+}
+
+.fade-in-enter,
+.fade-in-leave-to {
+  opacity: 0;
+}
+
 .preview-container {
   position: fixed;
   left: 0;

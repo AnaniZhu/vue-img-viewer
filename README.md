@@ -133,9 +133,16 @@ template
 ```html
 <template>
   <template v-for="(img, index) in imageUrls">
-    <img :key="index" :src="img" style="width: 100px; height: 100px; margin-right: 10px;" @click="handleImgPreview(index)">
+    <img
+      :key="index"
+      :src="img"
+      style="width: 100px; height: 100px; margin-right: 10px;"
+      @click="handleImgPreview(index)">
   </template>
-  <img-preview :image-urls="imageUrls" :visible.sync="visible" :start-position="startPosition"></img-preview>
+  <img-preview
+    :image-urls="imageUrls"
+    :visible.sync="visible"
+    :start-position="startPosition"></img-preview>
 </template>
 ```
 script
@@ -169,15 +176,16 @@ export default {
 
 | prop | 描述 | 类型 | 默认值 |
 | :--- | --- | --- | --- |
-| `visible.sync`     | 控制显隐。常规模式可用，插槽模式无效            | `Number`       |   `false`       |
+| `visible.sync`     | 控制显隐。常规模式可用，插槽模式无效            | `Boolean`       |   `false`       |
 | `imageUrls`        | url集合。常规模式可用，插槽模式无效            | `Array`    | `[ ]`       |
 | `maxScale`         | 最大缩放比例, 5 代表 5倍、500%, 不得小于1             | `Number`    | `5`         |
 | `minScale`         | 最小缩放比例, 0.1 代表 0.1倍、10%, 不得大于1          | `Number`   | `0.1`            |
 | `scaleStep`        | 单次缩放的比例（放大、缩小按钮）, 0.1 代表 每次变化0.1倍，变化10% | `Number`  | `0.1` |
 | `angle`         | 单次旋转的角度，默认90度 | `Number` | `90`            |
-| `includeSelector` | css 选择器筛选指定图片，插槽模式下有效。<br> eg: include-selector = ".my-img" 实际筛选则为 img.my-img    | `String`  | `''` |
-| `excludeSelector` | css 选择器过滤指定图片，插槽模式下有效。<br> eg: exclude-selector = ".other-img" 实际筛选则为 img:not(.ohter-img) | `String` | `''` |
-| `filter`   | 同 Array.prototype.filter 函数，插槽模式下有效。<br> 过滤 imageList 集合，此参数存在时，includeSelector 和 excludeSelector 无效。 | `Function`   | `() => true`
+| `include-selector` | css 选择器筛选指定图片，插槽模式下有效。<br> eg: include-selector = ".my-img" 实际筛选则为 img.my-img    | `String`  | `''` |
+| `exclude-selector` | css 选择器过滤指定图片，插槽模式下有效。<br> eg: exclude-selector = ".other-img" 实际筛选则为 img:not(.ohter-img) | `String` | `''` |
+| `filter`   | 同 Array.prototype.filter 函数，插槽模式下有效。<br> 过滤 imageList 集合，此参数存在时，includeSelector 和 excludeSelector 无效。 | `Function`   | `() => true` |
+| `close-on-press-escape` | 按ESC键是否关闭弹窗 | `Boolean` | `false` |
 
 
 # License

@@ -2,9 +2,16 @@
   <div>
     <h3 class="mb16">第一种用法，自定义传递图片url集合，自己控制显隐</h3>
     <template v-for="(img, index) in imageUrls">
-      <img :key="index" :src="img" style="width: 100px; height: 100px; margin-right: 10px;" @click="handleImgPreview(index)">
+      <img
+        :key="index"
+        :src="img"
+        style="width: 100px; height: 100px; margin-right: 10px;"
+        @click="handleImgPreview(index)">
     </template>
-    <img-preview :image-urls="imageUrls" :visible.sync="visible" :start-position="startPosition"></img-preview>
+    <img-preview
+      :image-urls="imageUrls"
+      :visible.sync="visible"
+      :start-position="startPosition"></img-preview>
 
     <h3 class="mb16">第二种用法，组件包裹元素，自动识别内部图片并添加点击事件预览, 显隐由组件内部控制，此模式可传递缩放相关的Props</h3>
     <h4 class="mb16">includeSelector 和 excludeSelector过滤</h4>
@@ -128,6 +135,12 @@ export default {
             desc: '同 Array.prototype.filter 函数，插槽模式下有效。<br> 过滤 imageList 集合，此参数存在时，includeSelector 和 excludeSelector 无效。',
             type: 'Function',
             default: '() => true'
+          },
+          {
+            name: 'closeOnPressEscape',
+            desc: '按ESC键是否关闭弹窗',
+            type: 'Boolean',
+            default: true
           }
         ]
       }

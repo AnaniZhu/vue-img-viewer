@@ -8,14 +8,14 @@
         style="width: 100px; height: 100px; margin-right: 10px;"
         @click="handleImgPreview(index)">
     </template>
-    <img-preview
+    <image-preview
       :image-urls="imageUrls"
       :visible.sync="visible"
-      :start-position="startPosition"></img-preview>
+      :start-position="startPosition" />
 
     <h3 class="mb16">第二种用法，组件包裹元素，自动识别内部图片并添加点击事件预览, 显隐由组件内部控制，此模式可传递缩放相关的Props</h3>
     <h4 class="mb16">includeSelector 和 excludeSelector过滤</h4>
-    <img-preview
+    <image-preview
       max-scale="3"
       min-scale="0.6"
       scale-step="0.2"
@@ -35,9 +35,9 @@
           :class="['s-img', index > 1 ? `img${index}` : '']"
           style="width: 100px; height: 100px; margin-right: 10px;">
       </div>
-    </img-preview>
+    </image-preview>
     <h4 class="mb16">filter 函数过滤</h4>
-    <img-preview
+    <image-preview
       max-scale="2"
       min-scale="0.5"
       scale-step="0.1"
@@ -57,14 +57,14 @@
           :class="['s-img', index > 1 ? `img${index}` : '']"
           style="width: 100px; height: 100px; margin-right: 10px;">
       </div>
-    </img-preview>
+    </image-preview>
   </div>
 </template>
 <script>
-import ImgPreview from './ImgPreview'
+import ImagePreview from './ImagePreview'
 export default {
   components: {
-    ImgPreview
+    ImagePreview
   },
   data () {
     return {
@@ -167,4 +167,3 @@ export default {
   display: inline-block;
 }
 </style>
-

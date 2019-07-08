@@ -20,15 +20,15 @@
             @wheel="wheelScale">
         </div>
         <div class="pos-tip">{{ currentPosition + 1 }} / {{ totalCount }}</div>
-        <div class="close hover-icon" @click="close"><i class="iconfont icon-guanbi"></i></div>
-        <div class="arrow arrow-prev hover-icon" @click="updatePosition(-1)"><i class="iconfont icon-shangyizhang"></i></div>
-        <div class="arrow arrow-next hover-icon" @click="updatePosition(1)"><i class="iconfont icon-xiayizhang"></i></div>
+        <div class="close hover-icon" @click="close"><i class="iconfont icon-guanbi" /></div>
+        <div class="arrow arrow-prev hover-icon" @click="updatePosition(-1)"><i class="iconfont icon-shangyizhang" /></div>
+        <div class="arrow arrow-next hover-icon" @click="updatePosition(1)"><i class="iconfont icon-xiayizhang" /></div>
         <div class="operate-area">
-          <i class="iconfont icon-actionicon hover-icon" @click="increaseScale"></i>
-          <i class="iconfont icon-suoxiao hover-icon" @click="decreaseScale"></i>
-          <div class="divide"></div>
-          <i class="iconfont icon-xuanzhuan hover-icon" @click="rotate -= innerAngle"></i>
-          <i class="iconfont icon-xuanzhuan-r hover-icon" @click="rotate += innerAngle"></i>
+          <i class="iconfont icon-actionicon hover-icon" @click="increaseScale" />
+          <i class="iconfont icon-suoxiao hover-icon" @click="decreaseScale" />
+          <div class="divide" />
+          <i class="iconfont icon-xuanzhuan hover-icon" @click="rotate -= innerAngle" />
+          <i class="iconfont icon-xuanzhuan-r hover-icon" @click="rotate += innerAngle" />
         </div>
         <transition name="fade">
           <div
@@ -40,7 +40,7 @@
         </transition>
       </div>
     </transition>
-    <div v-if="isSlotMode" ref="slotWrapper" @click="handleImgWrapperClick"><slot></slot></div>
+    <div v-if="isSlotMode" ref="slotWrapper" @click="handleImgWrapperClick"><slot /></div>
   </div>
 </template>
 
@@ -54,6 +54,7 @@ const BASE_SELECTOR = 'img' // 默认选择器
 const DEFAULT_FILTER_FUNCTION = () => true // 插槽模式下，默认过滤函数
 
 export default {
+  name: 'ImagePreview',
   props: {
     visible: {
       type: Boolean,
@@ -173,7 +174,7 @@ export default {
       return (this.finallyImageList || []).length
     },
     imgStyle () {
-      let {left, top} = this.position
+      let { left, top } = this.position
       let styleKey = this.aspectRatio > 1 ? 'max-width' : 'max-height'
       return {
         transform: `translate3d(${left}px, ${top}px, 0) scale(${this.scale}) rotate(${this.rotate}deg)`,
@@ -181,7 +182,7 @@ export default {
       }
     },
     scaleTipStyle () {
-      let {left, top} = this.position
+      let { left, top } = this.position
       return `transform: translate3d(calc(-50% + ${left}px), calc(-50% + ${top}px), 0)`
     }
   },
@@ -336,9 +337,9 @@ export default {
     },
     handleImageMouseMove (e) {
       // 移动event的坐标
-      let {clientX, clientY} = e
+      let { clientX, clientY } = e
       // 鼠标按下时记录的坐标
-      let {x, y} = this.mouse
+      let { x, y } = this.mouse
       // 偏移后的位置
       let deltaX = clientX - x + this.position.left
       let deltaY = clientY - y + this.position.top
@@ -352,6 +353,7 @@ export default {
       }
     },
     handleImageMouseUp (e) {
+      console.log(123)
       window.removeEventListener('mousemove', this.handleImageMouseMove)
       window.removeEventListener('mouseup', this.handleImageMouseUp)
     },
@@ -370,7 +372,7 @@ export default {
       this.resetImage()
     },
     handlePressESC (e) {
-      let {keyCode, code} = e
+      let { keyCode, code } = e
       if (this.visible && (keyCode === 27 || code === 'Escape')) {
         this.close()
       }
@@ -380,6 +382,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('//at.alicdn.com/t/font_1239600_z1ho2s724n.css');
+
 .fade-in-enter-active,
 .fade-in-leave-active {
   transition: opacity 0.25s;

@@ -8,3 +8,4 @@ npm-debug.log
 static/uploadfiles
 test/unit/coverage/
 .history/
+yarn-error.log

@@ -1,8 +1,10 @@
-import ImgPreview from './ImgPreview.vue'
-import '//at.alicdn.com/t/font_1239600_z1ho2s724n.css'
+import ImagePreview from './ImagePreview.vue'
 
-export default {
-  install (Vue, options = {}) {
-    Vue.Component('ImgPreview', ImgPreview)
-  }
+ImagePreview.install = Vue => Vue.Component(ImagePreview.name, ImagePreview)
+
+/* 支持使用标签的方式引入 */
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.Component(ImagePreview.name, ImagePreview)
 }
+
+export default ImagePreview

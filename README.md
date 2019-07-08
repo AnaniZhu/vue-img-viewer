@@ -55,7 +55,7 @@ template
 ```html
   <!-- 过滤方式： includeSelector、excludeSelector过滤  -->
   <h4 class="mb16">includeSelector 和 excludeSelector过滤</h4>
-  <img-preview
+  <image-preview
     max-scale="3"
     min-scale="0.6"
     scale-step="0.2"
@@ -75,11 +75,11 @@ template
         :class="['s-img', index > 1 ? `img${index}` : '']"
         style="width: 100px; height: 100px; margin-right: 10px;">
     </div>
-  </img-preview>
+  </image-preview>
 
   <!-- 过滤方式：filter 函数 -->
   <h4 class="mb16">filter 函数过滤</h4>
-  <img-preview
+  <image-preview
     max-scale="2"
     min-scale="0.5"
     scale-step="0.1"
@@ -99,7 +99,7 @@ template
         :class="['s-img', index > 1 ? `img${index}` : '']"
         style="width: 100px; height: 100px; margin-right: 10px;">
     </div>
-  </img-preview>
+  </image-preview>
 ```
 script
 ```js
@@ -127,7 +127,7 @@ export default {
 
 ## 2. 自定义模式
 
-> 此模式需自定义传递图片url集合，自己控制显隐，扩展性强，使用大部分场景
+> 此模式需自定义传递图片url集合，自己控制显隐，扩展性强，适用于自定义较强的场景
 
 template
 ```html
@@ -139,10 +139,10 @@ template
       style="width: 100px; height: 100px; margin-right: 10px;"
       @click="handleImgPreview(index)">
   </template>
-  <img-preview
+  <image-preview
     :image-urls="imageUrls"
     :visible.sync="visible"
-    :start-position="startPosition"></img-preview>
+    :start-position="startPosition"></image-preview>
 </template>
 ```
 script

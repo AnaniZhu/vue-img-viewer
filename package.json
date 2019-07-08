@@ -2,23 +2,54 @@
   "name": "vue-img-viewer",
   "version": "1.1.0",
   "description": "基于 Vue 的轻量级图片预览组件",
-  "main": "src/index.js",
+  "private": false,
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "NODE_ENV=production webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnaniZhu/vue-imgPreview.git"
+    "url": "git+https://github.com/AnaniZhu/vue-img-viewer.git"
   },
   "keywords": [
     "vue",
     "component",
     "image-preview"
   ],
-  "author": "Annani",
+  "author": "Annani <https://github.com/AnaniZhu/>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AnaniZhu/vue-imgPreview/issues"
+    "url": "https://github.com/AnaniZhu/vue-img-viewer/issues"
   },
-  "homepage": "https://github.com/AnaniZhu/vue-imgPreview#readme"
+  "homepage": "https://github.com/AnaniZhu/vue-img-viewer#readme",
+  "devDependencies": {
+    "@babel/core": "^7.5.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.5.0",
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.0.0",
+    "eslint": "^6.0.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^5.2.3",
+    "file-loader": "^4.0.0",
+    "node-sass": "^4.12.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "sass": "^1.22.3",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.3",
+    "url-loader": "^2.0.1",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.0",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5"
+  }
 }

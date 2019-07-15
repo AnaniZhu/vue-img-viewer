@@ -21,20 +21,18 @@
       scale-step="0.2"
       include-selector=".img , .s-img"
       exclude-selector=".img2 , .img3">
-      <div v-for="(img, index) in imageUrls" :key="index" class="dib">
-        <img
-          :key="index"
-          :src="img"
-          :class="['img', index > 1 ? `img${index}` : '']"
-          style="width: 100px; height: 100px; margin-right: 10px;">
-      </div>
-      <div v-for="(img, index) in imageUrls" :key="imageUrls.length + index" class="dib">
-        <img
-          :key="index"
-          :src="img"
-          :class="['s-img', index > 1 ? `img${index}` : '']"
-          style="width: 100px; height: 100px; margin-right: 10px;">
-      </div>
+      <img
+        v-for="(img, index) in imageUrls"
+        :key="index"
+        :src="img"
+        :class="['img', index > 1 ? `img${index}` : '']"
+        style="width: 100px; height: 100px; margin-right: 10px;">
+      <img
+        v-for="(img, index) in imageUrls"
+        :key="imageUrls.length + index"
+        :src="img"
+        :class="['s-img', index > 1 ? `img${index}` : '']"
+        style="width: 100px; height: 100px; margin-right: 10px;">
     </image-preview>
     <h4 class="mb16">filter 函数过滤</h4>
     <image-preview
@@ -43,20 +41,18 @@
       scale-step="0.1"
       angle="45"
       :filter="filter">
-      <div v-for="(img, index) in imageUrls" :key="index" class="dib">
-        <img
-          :key="index"
-          :src="img"
-          :class="['img', index > 1 ? `img${index}` : '']"
-          style="width: 100px; height: 100px; margin-right: 10px;">
-      </div>
-      <div v-for="(img, index) in imageUrls" :key="imageUrls.length + index" class="dib">
-        <img
-          :key="index"
-          :src="img"
-          :class="['s-img', index > 1 ? `img${index}` : '']"
-          style="width: 100px; height: 100px; margin-right: 10px;">
-      </div>
+      <img
+        v-for="(img, index) in imageUrls"
+        :key="index"
+        :src="img"
+        :class="['img', index > 1 ? `img${index}` : '']"
+        style="width: 100px; height: 100px; margin-right: 10px;">
+      <img
+        v-for="(img, index) in imageUrls"
+        :key="imageUrls.length + index"
+        :src="img"
+        :class="['s-img', index > 1 ? `img${index}` : '']"
+        style="width: 100px; height: 100px; margin-right: 10px;">
     </image-preview>
   </div>
 </template>
@@ -78,9 +74,6 @@ export default {
         'https://images.unsplash.com/photo-1536420124982-bd9d18fc47ed?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2d98a0cbfe7514bbe11cbd95ba2554f7&auto=format&fit=crop&w=701&q=80'
       ],
       exampleSetting: {
-        name: '图片预览',
-        author: '朱文涵',
-        keyWord: '图片预览',
         props: [
           {
             name: 'visible.sync',

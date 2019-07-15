@@ -22,6 +22,9 @@
     "url": "https://github.com/AnaniZhu/vue-img-viewer/issues"
   },
   "homepage": "https://github.com/AnaniZhu/vue-img-viewer#readme",
+  "peerDependencies": {
+    "vue": "^2.3.0"
+  },
   "devDependencies": {
     "@babel/core": "^7.5.0",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",

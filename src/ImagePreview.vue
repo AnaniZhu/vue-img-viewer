@@ -209,6 +209,18 @@ export default {
     },
     startPosition: function (val, old) {
       this.currentPosition = val
+    },
+    closeOnPressEscape: {
+      immediate: true,
+      handler (val, oldVal) {
+        if (val) {
+          window.addEventListener('keyup', this.handlePressESC)
+        }
+        // 由 true -> false， 将之前事件解绑掉
+        if (oldVal && !val) {
+          window.removeEventListener('keyup', this.handlePressESC)
+        }
+      }
     }
   },
   mounted () {
@@ -216,10 +228,9 @@ export default {
       this.imgList = this.queryImgList()
       this.initImgList()
     }
-    window.addEventListener('keyup', this.handlePressESC)
   },
   beforeDestroy () {
-    window.removeEventListener('keyup', this.handlePressESC)
+    this.closeOnPressEscape && window.removeEventListener('keyup', this.handlePressESC)
   },
   // 插槽子元素变化时，重新初始化
   updated () {
@@ -353,7 +364,6 @@ export default {
       }
     },
     handleImageMouseUp (e) {
-      console.log(123)
       window.removeEventListener('mousemove', this.handleImageMouseMove)
       window.removeEventListener('mouseup', this.handleImageMouseUp)
     },
@@ -373,7 +383,7 @@ export default {
     },
     handlePressESC (e) {
       let { keyCode, code } = e
-      if (this.visible && (keyCode === 27 || code === 'Escape')) {
+      if (this.finallyVisible && (keyCode === 27 || code === 'Escape')) {
         this.close()
       }
     }

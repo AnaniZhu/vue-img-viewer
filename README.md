@@ -6,10 +6,12 @@
 
 基于 Vue 的轻量级图片预览组件
 
+![demo](/static/demo.gif)
+
 
 # 前提条件
 
-- [Vue.js](https://github.com/vuejs/vue) `1.x` or `2.x`
+- [Vue.js](https://github.com/vuejs/vue) `2.3.0+`
 
 
 # 安装
@@ -61,20 +63,18 @@ template
     scale-step="0.2"
     include-selector=".img , .s-img"
     exclude-selector=".img2 , .img3">
-    <div v-for="(img, index) in imageUrls" :key="index" class="dib">
       <img
+        v-for="(img, index) in imageUrls"
         :key="index"
         :src="img"
         :class="['img', index > 1 ? `img${index}` : '']"
         style="width: 100px; height: 100px; margin-right: 10px;">
-    </div>
-    <div v-for="(img, index) in imageUrls" :key="imageUrls.length + index" class="dib">
       <img
-        :key="index"
+        v-for="(img, index) in imageUrls"
+        :key="imageUrls.length + index"
         :src="img"
         :class="['s-img', index > 1 ? `img${index}` : '']"
         style="width: 100px; height: 100px; margin-right: 10px;">
-    </div>
   </image-preview>
 
   <!-- 过滤方式：filter 函数 -->
@@ -85,20 +85,18 @@ template
     scale-step="0.1"
     angle="45"
     :filter="filter">
-    <div v-for="(img, index) in imageUrls" :key="index" class="dib">
       <img
+        v-for="(img, index) in imageUrls"
         :key="index"
         :src="img"
         :class="['img', index > 1 ? `img${index}` : '']"
         style="width: 100px; height: 100px; margin-right: 10px;">
-    </div>
-    <div v-for="(img, index) in imageUrls" :key="imageUrls.length + index" class="dib">
       <img
-        :key="index"
+        v-for="(img, index) in imageUrls"
+        :key="imageUrls.length + index"
         :src="img"
         :class="['s-img', index > 1 ? `img${index}` : '']"
         style="width: 100px; height: 100px; margin-right: 10px;">
-    </div>
   </image-preview>
 ```
 script

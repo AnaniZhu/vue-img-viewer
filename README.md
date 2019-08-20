@@ -145,7 +145,6 @@ template
 ```
 script
 ```js
-
 export default {
   data () {
     return {
@@ -169,6 +168,55 @@ export default {
 
 ```
 
+## 支持自定义底部操作栏插槽
+
+template
+```html
+<image-preview  ref="imgPreview">
+  <img
+    v-for="(img, index) in imageUrls"
+    :key="index"
+    :src="img"
+    class="img"
+    style="width: 100px; height: 100px; margin-right: 10px;">
+  <span slot="operate">
+    <!-- 旋转 -->
+    <button @click="$refs.imgPreview.rotate(30)">旋转 30 度</button>
+    <button @click="rotateExtraAngle">根据已有角度增加 30 度</button>
+    <!-- 缩放 -->
+    <button @click="$refs.imgPreview.zoom(2)">放大至 2 倍</button>
+    <button @click="zoom"> 在自身基础上放大 50% </button>
+    <!-- 重置回原始状态 -->
+    <button @click="$refs.imgPreview.reset()">重置</button>
+  </span>
+</image-preview>
+```
+script
+```js
+export default {
+  data () {
+    return {
+      imageUrls: [
+        'https://images.unsplash.com/photo-1536420111820-d84dee5c90c5?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d76602c3cafa0599d42cfdf255c5eb8d&auto=format&fit=crop&w=700&q=80',
+        'https://images.unsplash.com/photo-1536484049453-85de4ea3db6a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=902f2f3c5fbf8d85a2643ae073f39d39&auto=format&fit=crop&w=1222&q=80',
+        'https://images.unsplash.com/photo-1536420095395-a592ce76a37e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=986b742530a59130ea65a65ea461653d&auto=format&fit=crop&w=700&q=80',
+        'https://images.unsplash.com/photo-1536420124982-bd9d18fc47ed?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2d98a0cbfe7514bbe11cbd95ba2554f7&auto=format&fit=crop&w=701&q=80'
+      ],
+    }
+  },
+  methods: {
+    rotateExtraAngle () {
+      // angle 为旋转前的角度
+      return this.$refs.imgPreview.rotate(angle => angle + 30)
+    },
+    zoom () {
+      // scale 为缩放前的比例
+      return this.$refs.imgPreview.zoom(scale => scale * 1.5)
+    }
+  }
+}
+
+```
 
 ## Props
 
@@ -182,8 +230,21 @@ export default {
 | `angle`         | 单次旋转的角度，默认90度 | `Number` | `90`            |
 | `include-selector` | css 选择器筛选指定图片，插槽模式下有效。<br> eg: include-selector = ".my-img" 实际筛选则为 img.my-img    | `String`  | `''` |
 | `exclude-selector` | css 选择器过滤指定图片，插槽模式下有效。<br> eg: exclude-selector = ".other-img" 实际筛选则为 img:not(.ohter-img) | `String` | `''` |
-| `filter`   | 同 Array.prototype.filter 函数，插槽模式下有效。<br> 过滤 imageList 集合，此参数存在时，includeSelector 和 excludeSelector 无效。 | `Function`   | `() => true` |
+| `filter`   | 同 `Array.prototype.filter` 函数，插槽模式下有效。<br> 过滤 imageList 集合，此参数存在时，includeSelector 和 excludeSelector 无效。 | `Function`   | `() => true` |
 | `close-on-press-escape` | 按ESC键是否关闭弹窗 | `Boolean` | `false` |
+
+## Methods
+| 方法名 | 类型 | 描述 |
+| :--- | --- | --- |
+| `rotate` | `rotate(angle: number \| string \| Function):number \| string` | 旋转至指定角度。支持传入 `Number` 、`字符串数字`以及 `Function`(如果是函数，则该函数第一个参数为旋转前的角度), 该函数需要返回一个数字或者字符串数字，代表最终需旋转的角度。
+| `zoom` | `zoom(angle: number \| string \| Function):number \| string` | 缩放到指定比例。支持传入 `Number` 、`字符串数字`以及 `Function`(如果是函数，则该函数第一个参数为缩放前的比例), 该函数需要返回一个数字或者字符串数字，代表最终缩放的比例。
+| `reset` | `reset():void` | 重置到原始状态
+
+## Slots
+| 插槽名 | 描述 |
+| :--- | --- |
+| `default` | 插槽模式下可用，可传入任意 dom 结构，会自动识别其内部 `img` 标签并添加对应事件
+| `operate` | 自定义底部操作栏
 
 
 # License

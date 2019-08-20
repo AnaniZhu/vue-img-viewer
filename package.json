@@ -1,6 +1,6 @@
 {
   "name": "vue-img-viewer",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "基于 Vue 的轻量级图片预览组件",
   "private": false,
   "main": "dist/index.js",

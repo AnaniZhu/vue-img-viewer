@@ -55,7 +55,7 @@
         style="width: 100px; height: 100px; margin-right: 10px;">
     </image-preview>
     <h3 class="mb16">自定义底部操作栏</h3>
-    <image-preview>
+    <image-preview ref="imgPreview">
       <img
         v-for="(img, index) in imageUrls"
         :key="index"
@@ -63,7 +63,14 @@
         class="img"
         style="width: 100px; height: 100px; margin-right: 10px;">
       <span slot="operate">
-        <button>自定义按钮</button>
+        <!-- 旋转 -->
+        <button @click="$refs.imgPreview.rotate(30)">旋转 30 度</button>
+        <button @click="rotateExtraAngle">根据已有角度增加 30 度</button>
+        <!-- 缩放 -->
+        <button @click="$refs.imgPreview.zoom(2)">放大至 2 倍</button>
+        <button @click="zoom"> 在自身基础上放大 50% </button>
+        <!-- 重置回原始状态 -->
+        <button @click="$refs.imgPreview.reset()">重置</button>
       </span>
     </image-preview>
   </div>
@@ -155,6 +162,14 @@ export default {
     },
     filter (img, index) {
       return index > 2 && index < 5
+    },
+    rotateExtraAngle () {
+      // angle 为旋转前的角度
+      return this.$refs.imgPreview.rotate(angle => angle + 30)
+    },
+    zoom () {
+      // scale 为缩放前的比例
+      return this.$refs.imgPreview.zoom(scale => scale * 1.5)
     }
   }
 }

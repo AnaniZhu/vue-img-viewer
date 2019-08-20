@@ -24,11 +24,16 @@
         <div class="arrow arrow-prev hover-icon" @click="updatePosition(-1)"><i class="iconfont icon-shangyizhang" /></div>
         <div class="arrow arrow-next hover-icon" @click="updatePosition(1)"><i class="iconfont icon-xiayizhang" /></div>
         <div class="operate-area">
-          <i class="iconfont icon-actionicon hover-icon" @click="increaseScale" />
-          <i class="iconfont icon-suoxiao hover-icon" @click="decreaseScale" />
-          <div class="divide" />
-          <i class="iconfont icon-xuanzhuan hover-icon" @click="rotate -= innerAngle" />
-          <i class="iconfont icon-xuanzhuan-r hover-icon" @click="rotate += innerAngle" />
+          <slot v-if="$slots.operate" name="operate" />
+          <template v-else>
+            <i class="iconfont icon-actionicon hover-icon" @click="increaseScale" />
+            <i class="iconfont icon-suoxiao hover-icon" @click="decreaseScale" />
+            <div class="divide" />
+            <i class="iconfont icon-xuanzhuan hover-icon" @click="rotateAngle -= innerAngle" />
+            <i class="iconfont icon-xuanzhuan-r hover-icon" @click="rotateAngle += innerAngle" />
+            <div class="divide" />
+            <i class="iconfont icon-zhongzhi hover-icon" @click="reset" />
+          </template>
         </div>
         <transition name="fade">
           <div
@@ -53,6 +58,8 @@ const DEFAULT_ANGLE = 90
 const BASE_SELECTOR = 'img' // 默认选择器
 const DEFAULT_FILTER_FUNCTION = () => true // 插槽模式下，默认过滤函数
 
+const ALERT = text => console.log(`Error in vue-img-viewer: ${text}`)
+
 export default {
   name: 'ImagePreview',
   props: {
@@ -75,7 +82,7 @@ export default {
       default: DEFAULT_MAX_SCALE,
       validator (val) {
         let result = Number.isFinite(+val)
-        if (!result) console.error('prop maxScale 必须为Number类型或者数字字符串')
+        if (!result) ALERT('prop maxScale 必须为Number类型或者数字字符串')
         return result
       }
     },
@@ -84,7 +91,7 @@ export default {
       default: DEFAULT_MIN_SCALE,
       validator (val) {
         let result = Number.isFinite(+val)
-        if (!result) console.error('prop minScale 必须为Number类型或者数字字符串')
+        if (!result) ALERT('prop minScale 必须为Number类型或者数字字符串')
         return result
       }
     },
@@ -92,7 +99,7 @@ export default {
       type: [String, Number],
       validator (val) {
         let result = Number.isFinite(+val)
-        if (!result) console.error('prop scaleStep 必须为Number类型或者数字字符串')
+        if (!result) ALERT('prop scaleStep 必须为Number类型或者数字字符串')
         return result
       },
       default: DEFAULT_STEP
@@ -101,7 +108,7 @@ export default {
       type: [String, Number],
       validator (val) {
         let result = Number.isFinite(+val)
-        if (!result) console.error('prop angle 必须为Number类型或者数字字符串')
+        if (!result) ALERT('prop angle 必须为Number类型或者数字字符串')
         return result
       },
       default: DEFAULT_ANGLE
@@ -131,7 +138,7 @@ export default {
       imgList: [],
       urlList: [],
       scale: 1,
-      rotate: 0,
+      rotateAngle: 0,
       aspectRatio: 1,
       position: {
         left: 0,
@@ -177,7 +184,7 @@ export default {
       let { left, top } = this.position
       let styleKey = this.aspectRatio > 1 ? 'max-width' : 'max-height'
       return {
-        transform: `translate3d(${left}px, ${top}px, 0) scale(${this.scale}) rotate(${this.rotate}deg)`,
+        transform: `translate3d(${left}px, ${top}px, 0) scale(${this.scale}) rotate(${this.rotateAngle}deg)`,
         [styleKey]: '100%'
       }
     },
@@ -248,6 +255,44 @@ export default {
     }
   },
   methods: {
+    // ==================================== 对外方法 Start =============================================
+    rotate (angle) {
+      if (typeof angle === 'function') {
+        angle = +angle(this.rotateAngle)
+      } else {
+        angle = +angle
+      }
+      if (Number.isFinite(angle)) {
+        this.rotateAngle = angle
+      } else {
+        ALERT('rotate方法参数必须为一个数字或函数(如果是函数，则为函数的返回值必须为数字)')
+      }
+    },
+    zoom (zoomRate) {
+      if (typeof zoomRate === 'function') {
+        zoomRate = +zoomRate(this.scale)
+      } else {
+        zoomRate = +zoomRate
+      }
+
+      if (Number.isFinite(zoomRate)) {
+        // 限制缩放范围在“设定范围之内”
+        if (zoomRate < this.minScale) {
+          this.scale = this.minScale
+        } else if (zoomRate > this.maxScale) {
+          this.scale = this.maxScale
+        } else {
+          this.scale = zoomRate
+        }
+        // console.error(`zoom传入的参数(如果是函数，则为函数的返回值)超过设定的缩放范围，该范围为${this.minScale}~${this.maxScale}`)
+      } else {
+        ALERT('zoom方法参数必须为一个数字或函数(如果是函数，则为函数的返回值必须为数字)')
+      }
+    },
+    reset () {
+      return this.resetImage()
+    },
+    // ==================================== 对外方法 End =============================================
     /**
      * 根据传入的css选择器筛选，生成最终的选择器
      * 举个例子
@@ -296,7 +341,7 @@ export default {
     },
     resetImage () {
       this.scale = 1
-      this.rotate = 0
+      this.rotateAngle = 0
       this.position = {
         left: 0,
         top: 0
@@ -328,14 +373,10 @@ export default {
       this.resetImage()
     },
     increaseScale () {
-      if (this.scale < this.innerMaxScale) {
-        this.scale = +(this.scale + this.innerScaleStep).toFixed(1) // 处理精度丢失
-      }
+      this.zoom(scale => (scale + this.innerScaleStep).toFixed(1))// 处理精度丢失
     },
     decreaseScale () {
-      if (this.scale > this.innerMinScale) {
-        this.scale = +(this.scale - this.innerScaleStep).toFixed(1) // 处理精度丢失
-      }
+      this.zoom(scale => (scale - this.innerScaleStep).toFixed(1)) // 处理精度丢失
     },
     // 图片拽拉
     handleImageMouseDown (e) {
@@ -392,7 +433,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url('//at.alicdn.com/t/font_1239600_z1ho2s724n.css');
+@import url('//at.alicdn.com/t/font_1239600_7r0qv8bues.css');
 
 .fade-in-enter-active,
 .fade-in-leave-active {

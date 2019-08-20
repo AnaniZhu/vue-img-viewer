@@ -57,11 +57,8 @@
   </div>
 </template>
 <script>
-import ImagePreview from './ImagePreview'
+
 export default {
-  components: {
-    ImagePreview
-  },
   data () {
     return {
       visible: false,

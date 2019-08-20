@@ -54,6 +54,18 @@
         :class="['s-img', index > 1 ? `img${index}` : '']"
         style="width: 100px; height: 100px; margin-right: 10px;">
     </image-preview>
+    <h3 class="mb16">自定义底部操作栏</h3>
+    <image-preview>
+      <img
+        v-for="(img, index) in imageUrls"
+        :key="index"
+        :src="img"
+        class="img"
+        style="width: 100px; height: 100px; margin-right: 10px;">
+      <span slot="operate">
+        <button>自定义按钮</button>
+      </span>
+    </image-preview>
   </div>
 </template>
 <script>

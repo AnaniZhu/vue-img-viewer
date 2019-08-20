@@ -24,11 +24,16 @@
         <div class="arrow arrow-prev hover-icon" @click="updatePosition(-1)"><i class="iconfont icon-shangyizhang" /></div>
         <div class="arrow arrow-next hover-icon" @click="updatePosition(1)"><i class="iconfont icon-xiayizhang" /></div>
         <div class="operate-area">
-          <i class="iconfont icon-actionicon hover-icon" @click="increaseScale" />
-          <i class="iconfont icon-suoxiao hover-icon" @click="decreaseScale" />
-          <div class="divide" />
-          <i class="iconfont icon-xuanzhuan hover-icon" @click="rotateAngle -= innerAngle" />
-          <i class="iconfont icon-xuanzhuan-r hover-icon" @click="rotateAngle += innerAngle" />
+          <slot v-if="$slots.operate" name="operate" />
+          <template v-else>
+            <i class="iconfont icon-actionicon hover-icon" @click="increaseScale" />
+            <i class="iconfont icon-suoxiao hover-icon" @click="decreaseScale" />
+            <div class="divide" />
+            <i class="iconfont icon-xuanzhuan hover-icon" @click="rotateAngle -= innerAngle" />
+            <i class="iconfont icon-xuanzhuan-r hover-icon" @click="rotateAngle += innerAngle" />
+            <div class="divide" />
+            <i class="iconfont icon-zhongzhi hover-icon" @click="reset" />
+          </template>
         </div>
         <transition name="fade">
           <div
@@ -428,7 +433,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url('//at.alicdn.com/t/font_1239600_z1ho2s724n.css');
+@import url('//at.alicdn.com/t/font_1239600_7r0qv8bues.css');
 
 .fade-in-enter-active,
 .fade-in-leave-active {

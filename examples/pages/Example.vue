@@ -1,13 +1,12 @@
 <template>
   <div>
     <h3 class="mb16">第一种用法，自定义传递图片url集合，自己控制显隐</h3>
-    <template v-for="(img, index) in imageUrls">
-      <img
-        :key="index"
-        :src="img"
-        style="width: 100px; height: 100px; margin-right: 10px;"
-        @click="handleImgPreview(index)">
-    </template>
+    <img
+      v-for="(img, index) in imageUrls"
+      :key="index"
+      :src="img"
+      style="width: 100px; height: 100px; margin-right: 10px;"
+      @click="handleImgPreview(index)">
     <image-preview
       :image-urls="imageUrls"
       :visible.sync="visible"
@@ -54,7 +53,7 @@
         :class="['s-img', index > 1 ? `img${index}` : '']"
         style="width: 100px; height: 100px; margin-right: 10px;">
     </image-preview>
-    <h3 class="mb16">自定义底部操作栏</h3>
+    <h3 class="mb16">自定义底部操作栏和 loading</h3>
     <image-preview ref="imgPreview">
       <img
         v-for="(img, index) in imageUrls"
@@ -63,14 +62,14 @@
         class="img"
         style="width: 100px; height: 100px; margin-right: 10px;">
       <span slot="operate">
-        <!-- 旋转 -->
         <button @click="$refs.imgPreview.rotate(30)">旋转 30 度</button>
         <button @click="rotateExtraAngle">根据已有角度增加 30 度</button>
-        <!-- 缩放 -->
         <button @click="$refs.imgPreview.zoom(2)">放大至 2 倍</button>
         <button @click="zoom"> 在自身基础上放大 50% </button>
-        <!-- 重置回原始状态 -->
         <button @click="$refs.imgPreview.reset()">重置</button>
+      </span>
+      <span slot="loading" slot-scope="{loading}">
+        <button v-if="loading">loading</button>
       </span>
     </image-preview>
   </div>
@@ -78,6 +77,7 @@
 <script>
 
 export default {
+  name: 'Demo',
   data () {
     return {
       visible: false,
@@ -183,4 +183,5 @@ export default {
 .dib {
   display: inline-block;
 }
+
 </style>

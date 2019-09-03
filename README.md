@@ -2,12 +2,25 @@
 
 
 [![npm version](https://img.shields.io/npm/v/vue-img-viewer.svg?style=flat-square)](http://badge.fury.io/js/vue-img-viewer)
-[![npm license](https://img.shields.io/npm/l/vue-imgPreview.svg?style=flat-square)](http://badge.fury.io/js/vue-img-viewer)
+[![npm license](https://img.shields.io/npm/l/vue-img-viewer.svg?style=flat-square)](http://badge.fury.io/js/vue-img-viewer)
 
 基于 Vue 的轻量级图片预览组件
 
 ![demo](/static/demo.gif)
 
+- [Vue-img-viewer](#vue-img-viewer)
+- [前提条件](#%e5%89%8d%e6%8f%90%e6%9d%a1%e4%bb%b6)
+- [安装](#%e5%ae%89%e8%a3%85)
+  - [npm](#npm)
+- [用法](#%e7%94%a8%e6%b3%95)
+- [Example](#example)
+  - [1. 插槽模式](#1-%e6%8f%92%e6%a7%bd%e6%a8%a1%e5%bc%8f)
+  - [2. 自定义模式](#2-%e8%87%aa%e5%ae%9a%e4%b9%89%e6%a8%a1%e5%bc%8f)
+  - [3. 支持自定义底部操作栏和 loading](#3-%e6%94%af%e6%8c%81%e8%87%aa%e5%ae%9a%e4%b9%89%e5%ba%95%e9%83%a8%e6%93%8d%e4%bd%9c%e6%a0%8f%e5%92%8c-loading)
+  - [Props](#props)
+  - [Methods](#methods)
+  - [Slots](#slots)
+- [License](#license)
 
 # 前提条件
 
@@ -168,7 +181,7 @@ export default {
 
 ```
 
-## 支持自定义底部操作栏插槽
+## 3. 支持自定义底部操作栏和 loading
 
 template
 ```html
@@ -179,6 +192,7 @@ template
     :src="img"
     class="img"
     style="width: 100px; height: 100px; margin-right: 10px;">
+  <!-- 自定义底部操作栏 -->
   <span slot="operate">
     <!-- 旋转 -->
     <button @click="$refs.imgPreview.rotate(30)">旋转 30 度</button>
@@ -188,6 +202,11 @@ template
     <button @click="zoom"> 在自身基础上放大 50% </button>
     <!-- 重置回原始状态 -->
     <button @click="$refs.imgPreview.reset()">重置</button>
+  </span>
+  <!-- 自定义 loading -->
+  <span slot="loading" slot-scope="{ loading }">
+    <!-- 此处是你的 loading 组件 -->
+    <Loading v-if="loading">loading</Loading>
   </span>
 </image-preview>
 ```
@@ -232,6 +251,7 @@ export default {
 | `exclude-selector` | css 选择器过滤指定图片，插槽模式下有效。<br> eg: exclude-selector = ".other-img" 实际筛选则为 img:not(.ohter-img) | `String` | `''` |
 | `filter`   | 同 `Array.prototype.filter` 函数，插槽模式下有效。<br> 过滤 imageList 集合，此参数存在时，includeSelector 和 excludeSelector 无效。 | `Function`   | `() => true` |
 | `close-on-press-escape` | 按ESC键是否关闭弹窗 | `Boolean` | `false` |
+| `loading-delay` | 切换图片时，图片加载完成前会展示 loading。此参数可控制 loading 展示的延时。因为如果图片在短时间内就加载完成，loading 刚显示就会瞬间消失，导致视觉上的闪动，用户体验不友好。而通过此参数可以控制 loading 显示的延迟。假设图片在设置的延时时间之内就加载完成，就不会展示 loading，超过延时时间，如果图片未加载完，才会展示 loading。建议设置一个合理的时间， 默认为 300ms，如不需要可设置为 0。 | `Number` | `300` |
 
 ## Methods
 | 方法名 | 类型 | 描述 |
@@ -241,10 +261,11 @@ export default {
 | `reset` | `reset():void` | 重置到原始状态
 
 ## Slots
-| 插槽名 | 描述 |
-| :--- | --- |
-| `default` | 插槽模式下可用，可传入任意 dom 结构，会自动识别其内部 `img` 标签并添加对应事件
-| `operate` | 自定义底部操作栏
+| 插槽名 | 插槽参数 |  描述 |
+| :--- | --- | --- |
+| `default` | - | 插槽模式下可用，可传入任意 dom 结构，会自动识别其内部 `img` 标签并添加对应事件
+| `operate` | - | 自定义底部操作栏
+| `loading` | `loading: boolean` | 自定义 loading，该插槽只能有根元素。
 
 
 # License

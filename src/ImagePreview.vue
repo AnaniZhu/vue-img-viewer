@@ -8,14 +8,21 @@
         ref="imagePreview"
         class="preview-container">
         <div class="image-wrapper">
+          <slot name="loading" :loading="loading">
+            <Snippet v-if="loading" />
+          </slot>
           <!-- draggable: false 禁止 chrome 拖拽图片 -->
           <img
+            v-show="!loading"
+            ref="image"
             :src="finallyImageList[currentPosition]"
             :alt="`图片${currentPosition + 1}`"
             :style="imgStyle"
             class="image"
             draggable="false"
-            @load="initAspectRatio"
+            @load="handleImageLoad"
+            @error="hidenLoading"
+            @abort="hidenLoading"
             @mousedown="handleImageMouseDown"
             @wheel="wheelScale">
         </div>
@@ -24,16 +31,15 @@
         <div class="arrow arrow-prev hover-icon" @click="updatePosition(-1)"><i class="iconfont icon-shangyizhang" /></div>
         <div class="arrow arrow-next hover-icon" @click="updatePosition(1)"><i class="iconfont icon-xiayizhang" /></div>
         <div class="operate-area">
-          <slot v-if="$slots.operate" name="operate" />
-          <template v-else>
+          <slot name="operate">
             <i class="iconfont icon-actionicon hover-icon" @click="increaseScale" />
             <i class="iconfont icon-suoxiao hover-icon" @click="decreaseScale" />
             <div class="divide" />
-            <i class="iconfont icon-xuanzhuan hover-icon" @click="rotateAngle -= innerAngle" />
-            <i class="iconfont icon-xuanzhuan-r hover-icon" @click="rotateAngle += innerAngle" />
+            <i class="iconfont icon-xuanzhuan hover-icon" @click="leftRotate" />
+            <i class="iconfont icon-xuanzhuan-r hover-icon" @click="rightRotate" />
             <div class="divide" />
-            <i class="iconfont icon-zhongzhi hover-icon" @click="reset" />
-          </template>
+            <i class="iconfont icon-zhongzhi hover-icon" @click="onResetClick" />
+          </slot>
         </div>
         <transition name="fade">
           <div
@@ -50,18 +56,28 @@
 </template>
 
 <script>
+import Snippet from './Snippet'
 
 const DEFAULT_MAX_SCALE = 5 // 最大放大比例
 const DEFAULT_MIN_SCALE = 0.1 // 最小放大比例
 const DEFAULT_STEP = 0.1 // 单次缩放变化的比例
 const DEFAULT_ANGLE = 90
+const DEFAULT_LOADING_DELAY = 300 // 默认 loading 延迟时间 (ms)
 const BASE_SELECTOR = 'img' // 默认选择器
 const DEFAULT_FILTER_FUNCTION = () => true // 插槽模式下，默认过滤函数
 
-const ALERT = text => console.log(`Error in vue-img-viewer: ${text}`)
+const ALERT = text => console.error(`Error in vue-img-viewer: ${text}`)
+const validateNumber = prop => val => {
+  let result = Number.isFinite(+val)
+  if (!result) ALERT(`prop ${prop} 必须为Number类型或者数字字符串`)
+  return result
+}
 
 export default {
   name: 'ImagePreview',
+  components: {
+    Snippet
+  },
   props: {
     visible: {
       type: Boolean,
@@ -80,37 +96,21 @@ export default {
     maxScale: {
       type: [String, Number],
       default: DEFAULT_MAX_SCALE,
-      validator (val) {
-        let result = Number.isFinite(+val)
-        if (!result) ALERT('prop maxScale 必须为Number类型或者数字字符串')
-        return result
-      }
+      validator: validateNumber('maxScale')
     },
     minScale: {
       type: [String, Number],
       default: DEFAULT_MIN_SCALE,
-      validator (val) {
-        let result = Number.isFinite(+val)
-        if (!result) ALERT('prop minScale 必须为Number类型或者数字字符串')
-        return result
-      }
+      validator: validateNumber('minScale')
     },
     scaleStep: {
       type: [String, Number],
-      validator (val) {
-        let result = Number.isFinite(+val)
-        if (!result) ALERT('prop scaleStep 必须为Number类型或者数字字符串')
-        return result
-      },
+      validator: validateNumber('scaleStep'),
       default: DEFAULT_STEP
     },
     angle: {
       type: [String, Number],
-      validator (val) {
-        let result = Number.isFinite(+val)
-        if (!result) ALERT('prop angle 必须为Number类型或者数字字符串')
-        return result
-      },
+      validator: validateNumber('angle'),
       default: DEFAULT_ANGLE
     },
     includeSelector: {
@@ -128,6 +128,11 @@ export default {
     closeOnPressEscape: {
       type: Boolean,
       default: true
+    },
+    loadingDelay: {
+      type: [String, Number],
+      default: DEFAULT_LOADING_DELAY,
+      validator: validateNumber('loadingDelay')
     }
   },
   data () {
@@ -135,6 +140,7 @@ export default {
       isFirstShow: false,
       currentPosition: 0,
       slotModeVisible: false,
+      loading: false,
       imgList: [],
       urlList: [],
       scale: 1,
@@ -217,6 +223,10 @@ export default {
     startPosition: function (val, old) {
       this.currentPosition = val
     },
+    // 切换图片 src 时触发
+    currentPosition: 'handleImageSourceChange',
+    finallyImageList: 'handleImageSourceChange',
+
     closeOnPressEscape: {
       immediate: true,
       handler (val, oldVal) {
@@ -265,7 +275,7 @@ export default {
       if (Number.isFinite(angle)) {
         this.rotateAngle = angle
       } else {
-        ALERT('rotate方法参数必须为一个数字或函数(如果是函数，则为函数的返回值必须为数字)')
+        ALERT('rotate方法参数必须为一个数字或函数(如果是函数，则该函数的返回值必须为数字)')
       }
     },
     zoom (zoomRate) {
@@ -286,7 +296,7 @@ export default {
         }
         // console.error(`zoom传入的参数(如果是函数，则为函数的返回值)超过设定的缩放范围，该范围为${this.minScale}~${this.maxScale}`)
       } else {
-        ALERT('zoom方法参数必须为一个数字或函数(如果是函数，则为函数的返回值必须为数字)')
+        ALERT('zoom方法参数必须为一个数字或函数(如果是函数，则该函数的返回值必须为数字)')
       }
     },
     reset () {
@@ -354,12 +364,20 @@ export default {
         // 避免 fixed 被祖先元素的 transform 等属性影响定位
         // refer: https://github.com/chokcoco/iCSS/issues/24
         document.body.appendChild(this.$refs.imagePreview)
+
+        // loading
+        this.handleImageSourceChange()
       })
     },
     initAspectRatio (e) {
       let width = e.target.offsetWidth
       let height = e.target.offsetHeight
       this.aspectRatio = width / height
+    },
+    handleImageLoad (e) {
+      this.initAspectRatio(e)
+      this.hidenLoading()
+      this.$emit('imageLoad')
     },
     updatePosition (next) {
       const _next = this.currentPosition + next
@@ -372,11 +390,42 @@ export default {
       }
       this.resetImage()
     },
+    async handleImageSourceChange () {
+      // 等待 dom 渲染之后再取 complete 属性
+      await this.$nextTick()
+      // 加载未缓存图片时，开启 loading
+      if (this.$refs.image && !this.$refs.image.complete) {
+        this.showLoading()
+      }
+    },
+    showLoading () {
+      clearTimeout(this.loadingTimer)
+      this.loadingTimer = setTimeout(() => {
+        this.loading = true
+      }, this.loadingDelay)
+    },
+    hidenLoading () {
+      clearTimeout(this.loadingTimer)
+      this.loading = false
+    },
+    leftRotate () {
+      if (!this.loading) {
+        this.rotateAngle -= this.innerAngle
+      }
+    },
+    rightRotate () {
+      if (!this.loading) {
+        this.rotateAngle += this.innerAngle
+      }
+    },
     increaseScale () {
-      this.zoom(scale => (scale + this.innerScaleStep).toFixed(1))// 处理精度丢失
+      !this.loading && this.zoom(scale => (scale + this.innerScaleStep).toFixed(1))// 处理精度丢失
     },
     decreaseScale () {
-      this.zoom(scale => (scale - this.innerScaleStep).toFixed(1)) // 处理精度丢失
+      !this.loading && this.zoom(scale => (scale - this.innerScaleStep).toFixed(1)) // 处理精度丢失
+    },
+    onResetClick () {
+      !this.loading && this.reset()
     },
     // 图片拽拉
     handleImageMouseDown (e) {

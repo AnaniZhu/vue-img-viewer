@@ -251,13 +251,13 @@ export default {
 | `exclude-selector` | css 选择器过滤指定图片，插槽模式下有效。<br> eg: exclude-selector = ".other-img" 实际筛选则为 img:not(.ohter-img) | `String` | `''` |
 | `filter`   | 同 `Array.prototype.filter` 函数，插槽模式下有效。<br> 过滤 imageList 集合，此参数存在时，includeSelector 和 excludeSelector 无效。 | `Function`   | `() => true` |
 | `close-on-press-escape` | 按ESC键是否关闭弹窗 | `Boolean` | `false` |
-| `loading-delay` | 切换图片时，图片加载完成前会展示 loading。此参数可控制 loading 展示的延时。因为如果图片在短时间内就加载完成，loading 刚显示就会瞬间消失，导致视觉上的闪动，用户体验不友好。而通过此参数可以控制 loading 显示的延迟。假设图片在设置的延时时间之内就加载完成，就不会展示 loading，超过延时时间，如果图片未加载完，才会展示 loading。建议设置一个合理的时间， 默认为 300ms，如不需要可设置为 0。 | `Number` | `300` |
+| `loading-delay` | 在图片加载完成之前展示 loading。此参数可控制 loading 展示的延时。<br> 如果图片在短时间内就加载完成，loading 刚显示就会瞬间消失，导致视觉上的闪动，用户体验不友好。<br> 而通过此参数可以控制 loading 显示的延迟。假设图片在设置的延时时间之内就加载完成，则不会展示 loading，超过延时时间且图片未加载完，才会展示 loading。<br> 默认为 300ms，建议设置一个合理的时间，如不需要可设置为 0。 | `Number` | `300` |
 
 ## Methods
 | 方法名 | 类型 | 描述 |
 | :--- | --- | --- |
-| `rotate` | `rotate(angle: number \| string \| Function):number \| string` | 旋转至指定角度。支持传入 `Number` 、`字符串数字`以及 `Function`(如果是函数，则该函数第一个参数为旋转前的角度), 该函数需要返回一个数字或者字符串数字，代表最终需旋转的角度。
-| `zoom` | `zoom(angle: number \| string \| Function):number \| string` | 缩放到指定比例。支持传入 `Number` 、`字符串数字`以及 `Function`(如果是函数，则该函数第一个参数为缩放前的比例), 该函数需要返回一个数字或者字符串数字，代表最终缩放的比例。
+| `rotate` | `rotate(angle: number \| string \| Function(number):number \| string)` | 旋转至指定角度。支持传入 `Number` 、`字符串数字`以及 `Function`(如果是函数，则该函数第一个参数为旋转前的角度), 该函数需要返回一个数字或者字符串数字，代表最终需旋转的角度。
+| `zoom` | `zoom(angle: number \| string \| Function(number):number \| string)` | 缩放到指定比例。支持传入 `Number` 、`字符串数字`以及 `Function`(如果是函数，则该函数第一个参数为缩放前的比例), 该函数需要返回一个数字或者字符串数字，代表最终缩放的比例。
 | `reset` | `reset():void` | 重置到原始状态
 
 ## Slots
@@ -265,7 +265,7 @@ export default {
 | :--- | --- | --- |
 | `default` | - | 插槽模式下可用，可传入任意 dom 结构，会自动识别其内部 `img` 标签并添加对应事件
 | `operate` | - | 自定义底部操作栏
-| `loading` | `loading: boolean` | 自定义 loading，该插槽只能有根元素。
+| `loading` | `loading: boolean` | 自定义 loading，该插槽只能有一个根元素。
 
 
 # License

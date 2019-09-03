@@ -21,7 +21,7 @@ const webpackConfig = {
     umdNamedDefine: true
   },
   resolve: {
-    extensions: ['.js', '.vue', 'css'],
+    extensions: ['.js', '.vue', '.css'],
     alias: {
       '@': path.resolve(__dirname, 'src')
     }

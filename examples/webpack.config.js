@@ -19,7 +19,8 @@ module.exports = {
   resolve: {
     alias: {
       'vue-img-viewer': path.join(__dirname, '..', 'src')
-    }
+    },
+    extensions: ['.js', '.vue']
   },
 
   devServer: {

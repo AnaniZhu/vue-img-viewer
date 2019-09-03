@@ -17,8 +17,10 @@ module.exports = {
   },
 
   resolve: {
-    alias: {
+    alias: require('yargs').argv.debug ? {
       'vue-img-viewer': path.join(__dirname, '..', 'src')
+    } : {
+      'vue-img-viewer': path.join(__dirname, '..', 'dist/index.js')
     },
     extensions: ['.js', '.vue']
   },

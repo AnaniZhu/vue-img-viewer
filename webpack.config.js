@@ -39,8 +39,12 @@ const webpackConfig = {
           {
             loader: 'babel-loader',
             options: {
-              presets: ['@babel/preset-env'],
-              plugins: ['@babel/plugin-syntax-dynamic-import']
+              presets: [['@babel/preset-env', {
+                targets: {
+                  'ie': '9'
+                }
+              }]],
+              plugins: ['@babel/plugin-transform-runtime', '@babel/plugin-syntax-dynamic-import']
             }
           }
         ]

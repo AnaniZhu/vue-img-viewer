@@ -6387,6 +6387,10 @@ vue-hot-reload-api@^2.3.0:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.3.tgz#2756f46cb3258054c5f4723de8ae7e87302a1ccf"
 
+vue-img-viewer@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npm.taobao.org/vue-img-viewer/download/vue-img-viewer-1.2.0.tgz?cache=0&sync_timestamp=1566292067354&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-img-viewer%2Fdownload%2Fvue-img-viewer-1.2.0.tgz#011097d2695d02402dfe2509b41db513a7cd4123"
+
 vue-loader@^15.7.0:
   version "15.7.0"
   resolved "https://registry.yarnpkg.com/vue-loader/-/vue-loader-15.7.0.tgz#27275aa5a3ef4958c5379c006dd1436ad04b25b3"

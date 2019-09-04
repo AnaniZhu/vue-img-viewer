@@ -4,6 +4,9 @@ const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+
+const { analysis } = require('yargs').argv
 
 const buildPath = ''
 
@@ -35,19 +38,7 @@ const webpackConfig = {
       {
         test: /\.js/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [['@babel/preset-env', {
-                targets: {
-                  'ie': '9'
-                }
-              }]],
-              plugins: ['@babel/plugin-transform-runtime', '@babel/plugin-syntax-dynamic-import']
-            }
-          }
-        ]
+        use: ['babel-loader']
       },
       {
         test: /\.(css|scss|sass)$/,
@@ -91,7 +82,8 @@ const webpackConfig = {
     new VueLoaderPlugin(),
     new UglifyJsPlugin(),
     new OptimizeCssAssetsPlugin(),
-    new webpack.NamedModulesPlugin()
+    new webpack.NamedModulesPlugin(),
+    ...(analysis ? [new BundleAnalyzerPlugin()] : [])
   ]
 }
 module.exports = webpackConfig

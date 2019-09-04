@@ -390,13 +390,14 @@ export default {
       }
       this.resetImage()
     },
-    async handleImageSourceChange () {
+    handleImageSourceChange () {
       // 等待 dom 渲染之后再取 complete 属性
-      await this.$nextTick()
+      this.$nextTick(() => {
       // 加载未缓存图片时，开启 loading
-      if (this.$refs.image && !this.$refs.image.complete) {
-        this.showLoading()
-      }
+        if (this.$refs.image && !this.$refs.image.complete) {
+          this.showLoading()
+        }
+      })
     },
     showLoading () {
       clearTimeout(this.loadingTimer)

@@ -1,5 +1,12 @@
+## <small>1.4.1 (2020-02-15)</small>
+
+* fix: 添加遗漏的 dist 目录 ([9caac7e](https://github.com/AnaniZhu/vue-img-viewer/commit/9caac7e))
+
+
+
 ## 1.4.0 (2020-02-15)
 
+* 1.4.0 ([ff13073](https://github.com/AnaniZhu/vue-img-viewer/commit/ff13073))
 * chore: git commit message 允许版本号 ([4a93045](https://github.com/AnaniZhu/vue-img-viewer/commit/4a93045))
 * chore: 更改 babel 配置,减小包体积 ([d4759fb](https://github.com/AnaniZhu/vue-img-viewer/commit/d4759fb))
 * chore: 规范 commit message & CHANGELOG ([db6652c](https://github.com/AnaniZhu/vue-img-viewer/commit/db6652c))

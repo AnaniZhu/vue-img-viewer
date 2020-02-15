@@ -8,7 +8,10 @@
     "dev": "webpack-dev-server --debug=dev --config examples/webpack.config.js",
     "preview": "webpack-dev-server --debug=preview --config examples/webpack.config.js",
     "prod": "webpack-dev-server --config examples/webpack.config.js",
-    "build": "NODE_ENV=production webpack --config webpack.config.js"
+    "build": "NODE_ENV=production webpack --config webpack.config.js",
+    "commit": "git-cz",
+    "changelog": "conventional-changelog -i CHANGELOG.md -s -r 0",
+    "version": "npm run changelog && git add CHANGELOG.md"
   },
   "prepublishOnly": "npm run build",
   "files": [
@@ -29,6 +32,16 @@
     "url": "https://github.com/AnaniZhu/vue-img-viewer/issues"
   },
   "homepage": "https://github.com/AnaniZhu/vue-img-viewer#readme",
+  "husky": {
+    "hooks": {
+      "commit-msg": "node ./scripts/commitmsg.validate.js -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
   "peerDependencies": {
     "vue": "^2.3.0"
   },
@@ -37,11 +50,14 @@
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.5.5",
     "@babel/preset-env": "^7.5.0",
+    "@babel/runtime": "^7.5.5",
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.6",
     "babel-plugin-dynamic-import-node": "^2.3.0",
+    "commitizen": "^4.0.3",
+    "conventional-changelog-cli": "^2.0.31",
     "css-loader": "^3.0.0",
     "eslint": "^6.0.1",
     "eslint-config-standard": "^12.0.0",
@@ -52,6 +68,7 @@
     "eslint-plugin-vue": "^5.2.3",
     "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.2.3",
     "node-sass": "^4.12.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "sass": "^1.22.3",
@@ -68,8 +85,5 @@
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.8.0",
     "yargs": "^14.0.0"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.5.5"
   }
 }

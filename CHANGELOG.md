@@ -1,3 +1,12 @@
+## 1.4.0 (2020-02-15)
+
+* chore: git commit message 允许版本号 ([4a93045](https://github.com/AnaniZhu/vue-img-viewer/commit/4a93045))
+* chore: 更改 babel 配置,减小包体积 ([d4759fb](https://github.com/AnaniZhu/vue-img-viewer/commit/d4759fb))
+* chore: 规范 commit message & CHANGELOG ([db6652c](https://github.com/AnaniZhu/vue-img-viewer/commit/db6652c))
+* feat: 增加 prop: urlMapper & 优化锁定 body 滚动 ([fafd0ac](https://github.com/AnaniZhu/vue-img-viewer/commit/fafd0ac))
+
+
+
 ## <small>1.3.1 (2020-02-15)</small>
 
 *  1.3.1 ([dd5d5d4](https://github.com/AnaniZhu/vue-img-viewer/commit/dd5d5d4))

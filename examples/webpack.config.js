@@ -4,11 +4,13 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const { debug } = require('yargs').argv
-const aliaMap = {
+const aliasMap = {
   dev: {
     'vue-img-viewer': path.join(__dirname, '..', 'src')
   },
-  preview: path.join(__dirname, '..', 'dist/index.js')
+  preview: {
+    'vue-img-viewer': path.join(__dirname, '..', 'dist/index.js')
+  }
 }
 
 module.exports = {
@@ -25,9 +27,7 @@ module.exports = {
   },
 
   resolve: {
-    alias: {
-      ...(aliaMap[debug] || {})
-    },
+    alias: aliasMap[debug] || {},
     extensions: ['.js', '.vue']
   },
 
@@ -35,7 +35,8 @@ module.exports = {
     contentBase: path.join(__dirname, '__build__'),
     port: 9000,
     hot: true,
-    clientLogLevel: 'none'
+    clientLogLevel: 'none',
+    open: true
   },
 
   module: {

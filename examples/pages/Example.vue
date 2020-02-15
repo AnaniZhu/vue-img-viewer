@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h3 class="mb16">第一种用法，自定义传递图片url集合，自己控制显隐</h3>
     <img
       v-for="(img, index) in imageUrls"
@@ -19,7 +19,8 @@
       min-scale="0.6"
       scale-step="0.2"
       include-selector=".img , .s-img"
-      exclude-selector=".img2 , .img3">
+      exclude-selector=".img2 , .img3"
+      :url-mapper="urlMapper">
       <img
         v-for="(img, index) in imageUrls"
         :key="index"
@@ -170,12 +171,20 @@ export default {
     zoom () {
       // scale 为缩放前的比例
       return this.$refs.imgPreview.zoom(scale => scale * 1.5)
+    },
+    urlMapper (url, index) {
+      console.log(url, index)
+      return 'https://images.unsplash.com/photo-1536420124982-bd9d18fc47ed?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2d98a0cbfe7514bbe11cbd95ba2554f7&auto=format&fit=crop&w=701&q=80'
     }
   }
 }
 </script>
 
 <style scoped>
+.container {
+  height: 110vh;
+}
+
 .mb16 {
   margin-top: 16px;
 }

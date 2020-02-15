@@ -21,8 +21,8 @@
             class="image"
             draggable="false"
             @load="handleImageLoad"
-            @error="hidenLoading"
-            @abort="hidenLoading"
+            @error="hideLoading"
+            @abort="hideLoading"
             @mousedown="handleImageMouseDown"
             @wheel="wheelScale">
         </div>
@@ -57,6 +57,7 @@
 
 <script>
 import Snippet from './Snippet'
+import { forbiddenBodyScroll } from './util'
 
 const DEFAULT_MAX_SCALE = 5 // 最大放大比例
 const DEFAULT_MIN_SCALE = 0.1 // 最小放大比例
@@ -87,6 +88,10 @@ export default {
     imageUrls: {
       type: Array,
       default: () => []
+    },
+    urlMapper: {
+      type: Function,
+      default: null
     },
     // 起始位置
     startPosition: {
@@ -178,7 +183,9 @@ export default {
     },
     // 根据不同用法生成图片列表
     finallyImageList () {
-      return this.isSlotMode ? this.urlList : this.imageUrls
+      return this.isSlotMode
+        ? this.urlMapper ? this.urlList.map(this.urlMapper) : this.urlList
+        : this.imageUrls
     },
     finallyVisible () {
       return this.isSlotMode ? this.slotModeVisible : this.visible
@@ -200,26 +207,11 @@ export default {
     }
   },
   watch: {
-    visible (visible) {
-      if (visible) {
-        if (!this.isFirstShow) {
-          this.handleFirstVisible()
-        }
-        document.body.style.overflow = 'hidden'
-      } else {
-        document.body.style.overflow = ''
-      }
+    visible: {
+      immediate: true,
+      handler: 'handleVisible'
     },
-    slotModeVisible (visible) {
-      if (visible) {
-        if (!this.isFirstShow) {
-          this.handleFirstVisible()
-        }
-        document.body.style.overflow = 'hidden'
-      } else {
-        document.body.style.overflow = ''
-      }
-    },
+    slotModeVisible: 'handleVisible',
     startPosition: function (val, old) {
       this.currentPosition = val
     },
@@ -322,8 +314,8 @@ export default {
         excludeSelectorList = this.excludeSelector.split(SPLIT_REG)
       }
       let selectorList = includeSelectorList.map((selector) => {
-        let fitlerSelector = excludeSelectorList.map(exSelector => `:not(${exSelector})`)
-        return BASE_SELECTOR + selector + fitlerSelector.join('')
+        let filterSelector = excludeSelectorList.map(exSelector => `:not(${exSelector})`)
+        return BASE_SELECTOR + selector + filterSelector.join('')
       })
       return selectorList.join(', ') || BASE_SELECTOR
     },
@@ -357,6 +349,16 @@ export default {
         top: 0
       }
     },
+    handleVisible (visible) {
+      if (visible) {
+        if (!this.isFirstShow) {
+          this.handleFirstVisible()
+        }
+        this.restoreBody = forbiddenBodyScroll()
+      } else {
+        this.restoreBody && this.restoreBody()
+      }
+    },
     handleFirstVisible () {
       // dom渲染后，将其插入body中
       this.isFirstShow = true
@@ -376,7 +378,7 @@ export default {
     },
     handleImageLoad (e) {
       this.initAspectRatio(e)
-      this.hidenLoading()
+      this.hideLoading()
       this.$emit('imageLoad')
     },
     updatePosition (next) {
@@ -405,7 +407,7 @@ export default {
         this.loading = true
       }, this.loadingDelay)
     },
-    hidenLoading () {
+    hideLoading () {
       clearTimeout(this.loadingTimer)
       this.loading = false
     },

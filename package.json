@@ -5,7 +5,9 @@
   "private": false,
   "main": "dist/index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config examples/webpack.config.js",
+    "dev": "webpack-dev-server --debug=dev --config examples/webpack.config.js",
+    "preview": "webpack-dev-server --debug=preview --config examples/webpack.config.js",
+    "prod": "webpack-dev-server --config examples/webpack.config.js",
     "build": "NODE_ENV=production webpack --config webpack.config.js"
   },
   "prepublishOnly": "npm run build",

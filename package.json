@@ -11,9 +11,9 @@
     "build": "NODE_ENV=production webpack --config webpack.config.js",
     "commit": "git-cz",
     "changelog": "conventional-changelog -i CHANGELOG.md -s -r 0",
-    "version": "npm run changelog && git add CHANGELOG.md"
+    "version": "npm run changelog && git add CHANGELOG.md",
+    "prepublishOnly": "npm run build"
   },
-  "prepublishOnly": "npm run build",
   "files": [
     "dist"
   ],

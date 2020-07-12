@@ -275,10 +275,10 @@ export default {
 
       if (Number.isFinite(zoomRate)) {
         // 限制缩放范围在“设定范围之内”
-        if (zoomRate < this.minScale) {
-          this.scale = this.minScale
-        } else if (zoomRate > this.maxScale) {
-          this.scale = this.maxScale
+        if (zoomRate < this.innerMinScale) {
+          this.scale = this.innerMinScale
+        } else if (zoomRate > this.innerMaxScale) {
+          this.scale = this.innerMaxScale
         } else {
           this.scale = zoomRate
         }

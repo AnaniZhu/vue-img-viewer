@@ -1,3 +1,13 @@
+## [1.4.3](https://github.com/AnaniZhu/vue-img-viewer/compare/v1.4.2...v1.4.3) (2020-07-12)
+
+
+### Bug Fixes
+
+* 修复当传入字符串 max-scale 和 min-scale 时, 缩放到临界值报错的问题 [#7](https://github.com/AnaniZhu/vue-img-viewer/issues/7) ([7a3cc6b](https://github.com/AnaniZhu/vue-img-viewer/commit/7a3cc6b4a22d390fe321356205231de53e0452c2))
+* 修复白色背景下操作栏按钮展示不清晰的问题 [#7](https://github.com/AnaniZhu/vue-img-viewer/issues/7) ([21dc212](https://github.com/AnaniZhu/vue-img-viewer/commit/21dc212d3415b26d4ef655bf1fd168190fd96de2))
+
+
+
 ## [1.4.2](https://github.com/AnaniZhu/vue-img-viewer/compare/v1.4.1...v1.4.2) (2020-07-12)
 
 
@@ -80,6 +90,7 @@
 ## [1.1.2](https://github.com/AnaniZhu/vue-img-viewer/compare/v1.1.1...v1.1.2) (2020-02-15)
 
 
+
 ## [1.1.1](https://github.com/AnaniZhu/vue-img-viewer/compare/v1.1.0...v1.1.1) (2020-02-15)
 
 
@@ -91,7 +102,7 @@
 
 # [1.1.0](https://github.com/AnaniZhu/vue-img-viewer/compare/v1.0.0...v1.1.0) (2020-02-15)
 
-* 新增 prop: closeOnPressEscape, 按下ESC键可关闭弹窗 ([991bf97](https://github.com/AnaniZhu/vue-img-viewer/commit/991bf9772826efa7264a2a9580f33b647b5f312e)
+
 
 # [1.0.0](https://github.com/AnaniZhu/vue-img-viewer/compare/f812fca5437403c3973ff105ccb21c6282ad0a49...v1.0.0) (2020-02-15)
 

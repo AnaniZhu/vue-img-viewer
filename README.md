@@ -8,7 +8,7 @@
 
 ![demo](/static/demo.gif)
 
-- [Vue-img-viewer](#vue-img-viewer)
+- [更新日志](#更新日志)
 - [前提条件](#%e5%89%8d%e6%8f%90%e6%9d%a1%e4%bb%b6)
 - [安装](#%e5%ae%89%e8%a3%85)
   - [npm](#npm)
@@ -21,6 +21,11 @@
   - [Methods](#methods)
   - [Slots](#slots)
 - [License](#license)
+
+# 更新日志
+- [CHANGELOG](/CHANGELOG.md)
+
+> 生成的 changelog 因为曾经 rebase 的原因导致发布日期展示有误，暂时忽略...
 
 # 前提条件
 

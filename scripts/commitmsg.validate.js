@@ -3,7 +3,7 @@ const fs = require('fs')
 const commitMsg = fs.readFileSync(process.env.HUSKY_GIT_PARAMS, 'utf-8')
 const commitPattern = /^(feat|fix|improvement|docs|style|refactor|pref|test|build|ci|chore|revert):\s[\s\S]+$/g
 
-const versionPattern = /^\d\.\d\.\d\n*$/
+const versionPattern = /^v?\d\.\d\.\d\n*$/
 
 if (!commitPattern.test(commitMsg) && !versionPattern.test(commitMsg)) {
   console.error(

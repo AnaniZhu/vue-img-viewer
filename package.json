@@ -10,7 +10,7 @@
     "prod": "webpack-dev-server --config examples/webpack.config.js",
     "build": "NODE_ENV=production webpack --config webpack.config.js",
     "commit": "git-cz",
-    "changelog": "conventional-changelog -i CHANGELOG.md -s -r 0",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "version": "npm run changelog && git add CHANGELOG.md",
     "prepublishOnly": "npm run build"
   },

@@ -1,5 +1,13 @@
+## <small>1.4.2 (2020-07-12)</small>
+
+* chore: 支持 yarn version commit message 格式 ([c3d6142](https://github.com/AnaniZhu/vue-img-viewer/commit/c3d6142))
+* fix: 所有 icon 替换为 svg, 修复 iconfont 样式影响问题 #7 ([13de05d](https://github.com/AnaniZhu/vue-img-viewer/commit/13de05d)), closes [#7](https://github.com/AnaniZhu/vue-img-viewer/issues/7)
+
+
+
 ## <small>1.4.1 (2020-02-15)</small>
 
+* 1.4.1 ([aaf572c](https://github.com/AnaniZhu/vue-img-viewer/commit/aaf572c))
 * fix: 添加遗漏的 dist 目录 ([9caac7e](https://github.com/AnaniZhu/vue-img-viewer/commit/9caac7e))
 
 

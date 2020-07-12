@@ -27,18 +27,18 @@
             @wheel="wheelScale">
         </div>
         <div class="pos-tip">{{ currentPosition + 1 }} / {{ totalCount }}</div>
-        <div class="close hover-icon" @click="close"><i class="iconfont icon-guanbi" /></div>
-        <div class="arrow arrow-prev hover-icon" @click="updatePosition(-1)"><i class="iconfont icon-shangyizhang" /></div>
-        <div class="arrow arrow-next hover-icon" @click="updatePosition(1)"><i class="iconfont icon-xiayizhang" /></div>
+        <div class="close hover-icon" @click="close"><SvgIcon class="icon" name="guanbi" /></div>
+        <div class="arrow arrow-prev hover-icon" @click="updatePosition(-1)"><SvgIcon class="icon" name="shangyizhang" /></div>
+        <div class="arrow arrow-next hover-icon" @click="updatePosition(1)"><SvgIcon class="icon" name="xiayizhang" /></div>
         <div class="operate-area">
           <slot name="operate">
-            <i class="iconfont icon-actionicon hover-icon" @click="increaseScale" />
-            <i class="iconfont icon-suoxiao hover-icon" @click="decreaseScale" />
+            <SvgIcon class="icon hover-icon" name="actionicon" @click="increaseScale" />
+            <SvgIcon class="icon hover-icon" name="suoxiao" @click="decreaseScale" />
             <div class="divide" />
-            <i class="iconfont icon-xuanzhuan hover-icon" @click="leftRotate" />
-            <i class="iconfont icon-xuanzhuan-r hover-icon" @click="rightRotate" />
+            <SvgIcon class="icon hover-icon" name="xuanzhuan" @click="leftRotate" />
+            <SvgIcon class="icon hover-icon" name="xuanzhuan-r" @click="rightRotate" />
             <div class="divide" />
-            <i class="iconfont icon-zhongzhi hover-icon" @click="onResetClick" />
+            <SvgIcon class="icon hover-icon" name="zhongzhi" @click="onResetClick" />
           </slot>
         </div>
         <transition name="fade">
@@ -57,6 +57,8 @@
 
 <script>
 import Snippet from './Snippet'
+import SvgIcon from './SvgIcon'
+
 import { forbiddenBodyScroll } from './util'
 
 const DEFAULT_MAX_SCALE = 5 // 最大放大比例
@@ -77,7 +79,8 @@ const validateNumber = prop => val => {
 export default {
   name: 'ImagePreview',
   components: {
-    Snippet
+    Snippet,
+    SvgIcon
   },
   props: {
     visible: {
@@ -559,7 +562,7 @@ export default {
       background-color: rgba(0, 0, 0, 0.3);
     }
 
-    .iconfont {
+    .icon {
       font-size: 23px;
       font-weight: bold;
     }
@@ -584,7 +587,7 @@ export default {
       right: 0;
     }
 
-    .iconfont {
+    .icon {
       font-size: 32px;
       font-weight: bold;
     }
@@ -600,10 +603,10 @@ export default {
     background-color: rgba(0, 0, 0, 0.3);
     color: rgba(51, 51, 51, 0.4);
 
-    .iconfont {
+    .icon {
       font-size: 24px;
 
-      & + .iconfont {
+      & + .icon {
         margin-left: 24px;
       }
     }

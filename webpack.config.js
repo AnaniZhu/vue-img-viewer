@@ -5,6 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const ImportHttpWebpackPlugin = require('import-http/webpack')
 
 const { analysis } = require('yargs').argv
 
@@ -83,7 +84,8 @@ const webpackConfig = {
     new UglifyJsPlugin(),
     new OptimizeCssAssetsPlugin(),
     new webpack.NamedModulesPlugin(),
-    ...(analysis ? [new BundleAnalyzerPlugin()] : [])
+    ...(analysis ? [new BundleAnalyzerPlugin()] : []),
+    new ImportHttpWebpackPlugin()
   ]
 }
 module.exports = webpackConfig

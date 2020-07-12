@@ -28,3 +28,11 @@ export function forbiddenBodyScroll () {
     return function () {}
   }
 }
+
+export const ALERT = text => console.error(`Error in vue-img-viewer: ${text}`)
+
+export const validateNumber = prop => val => {
+  let result = Number.isFinite(+val)
+  if (!result) ALERT(`prop ${prop} 必须为Number类型或者数字字符串`)
+  return result
+}

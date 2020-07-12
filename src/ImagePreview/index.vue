@@ -56,10 +56,10 @@
 </template>
 
 <script>
-import Snippet from './Snippet'
-import SvgIcon from './SvgIcon'
+import Snippet from './components/Snippet'
+import SvgIcon from './components/SvgIcon'
 
-import { forbiddenBodyScroll } from './util'
+import { forbiddenBodyScroll, ALERT, validateNumber } from '../util'
 
 const DEFAULT_MAX_SCALE = 5 // 最大放大比例
 const DEFAULT_MIN_SCALE = 0.1 // 最小放大比例
@@ -68,13 +68,6 @@ const DEFAULT_ANGLE = 90
 const DEFAULT_LOADING_DELAY = 300 // 默认 loading 延迟时间 (ms)
 const BASE_SELECTOR = 'img' // 默认选择器
 const DEFAULT_FILTER_FUNCTION = () => true // 插槽模式下，默认过滤函数
-
-const ALERT = text => console.error(`Error in vue-img-viewer: ${text}`)
-const validateNumber = prop => val => {
-  let result = Number.isFinite(+val)
-  if (!result) ALERT(`prop ${prop} 必须为Number类型或者数字字符串`)
-  return result
-}
 
 export default {
   name: 'ImagePreview',
@@ -488,159 +481,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import url('//at.alicdn.com/t/font_1239600_7r0qv8bues.css');
-
-.fade-in-enter-active,
-.fade-in-leave-active {
-  transition: opacity 0.25s;
-}
-
-.fade-in-enter,
-.fade-in-leave-to {
-  opacity: 0;
-}
-
-.preview-container {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-  user-select: none;
-  z-index: 10000;
-
-  .image-wrapper {
-    position: absolute;
-    left: 0;
-    top: 0;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    z-index: 0;
-
-    .image {
-      border-radius: 4px;
-      cursor: move;
-      will-change: transform;
-    }
-  }
-
-  .pos-tip {
-    position: absolute;
-    top: 48px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 8px 15px;
-    border-radius: 2px;
-    background-color: rgba(0, 0, 0, 0.15);
-    color: #fff;
-  }
-
-  .hover-icon {
-    color: rgba(255, 255, 255, 0.6);
-    transition: all 0.15s;
-    cursor: pointer;
-
-    &:hover {
-      color: rgba(255, 255, 255, 0.95);
-    }
-  }
-
-  .close {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    padding: 10px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.15);
-
-    &:hover {
-      background-color: rgba(0, 0, 0, 0.3);
-    }
-
-    .icon {
-      font-size: 23px;
-      font-weight: bold;
-    }
-  }
-
-  .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 40px 20px;
-    text-align: center;
-
-    &:hover {
-      background-color: #3d3d3d;
-    }
-
-    &-prev {
-      left: 0;
-    }
-
-    &-next {
-      right: 0;
-    }
-
-    .icon {
-      font-size: 32px;
-      font-weight: bold;
-    }
-  }
-
-  .operate-area {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 24px 0;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: rgba(51, 51, 51, 0.4);
-
-    .icon {
-      font-size: 24px;
-
-      & + .icon {
-        margin-left: 24px;
-      }
-    }
-
-    .divide {
-      display: inline-block;
-      width: 1px;
-      height: 20px;
-      background-color: #d8d8d8;
-      border-radius: 1px;
-      margin: 0 24px;
-      opacity: 0.5;
-    }
-  }
-
-  .scale-tip {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate3d(-50%, -50%, 0);
-    padding: 8px 15px;
-    border-radius: 2px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #d8d8d8;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .fade-enter-active {
-    transition: opacity 1.5s;
-  }
-
-  .fade-enter {
-    opacity: 1;
-  }
-}
+@import './index.scss';
 </style>

@@ -1,4 +1,4 @@
-import ImagePreview from './ImagePreview.vue'
+import ImagePreview from './ImagePreview'
 
 ImagePreview.install = Vue => Vue.component(ImagePreview.name, ImagePreview)
 

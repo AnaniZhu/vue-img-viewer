@@ -1,3 +1,12 @@
+## [1.4.4](https://github.com/AnaniZhu/vue-img-viewer/compare/v1.4.3...v1.4.4) (2020-08-15)
+
+
+### Bug Fixes
+
+* 修复 chrome 下大图显示模糊问题 ([bfaab7d](https://github.com/AnaniZhu/vue-img-viewer/commit/bfaab7d78ec901deb5a0e0f661ba06fa19aad26c))
+
+
+
 ## [1.4.3](https://github.com/AnaniZhu/vue-img-viewer/compare/v1.4.2...v1.4.3) (2020-07-12)
 
 

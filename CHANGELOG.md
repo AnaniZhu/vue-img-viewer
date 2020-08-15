@@ -3,7 +3,7 @@
 
 ### Bug Fixes
 
-* 修复 chrome 下大图显示模糊问题 ([bfaab7d](https://github.com/AnaniZhu/vue-img-viewer/commit/bfaab7d78ec901deb5a0e0f661ba06fa19aad26c))
+* 修复 chrome 下大图显示模糊问题 [#9](https://github.com/AnaniZhu/vue-img-viewer/issues/9) ([f1f0c78](https://github.com/AnaniZhu/vue-img-viewer/commit/f1f0c78c23508bae8e13bf7fb6a1d50d6e91a237))
 
 
 

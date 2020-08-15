@@ -263,7 +263,7 @@ export default {
       if (Number.isFinite(angle)) {
         this.rotateAngle = angle
       } else {
-        ALERT('rotate方法参数必须为一个数字或函数(如果是函数，则该函数的返回值必须为数字)')
+        ALERT('rotate 方法参数必须为一个数字或函数(如果是函数，则该函数的返回值必须为数字)')
       }
     },
     zoom (zoomRate) {
@@ -284,7 +284,7 @@ export default {
         }
         // console.error(`zoom传入的参数(如果是函数，则为函数的返回值)超过设定的缩放范围，该范围为${this.minScale}~${this.maxScale}`)
       } else {
-        ALERT('zoom方法参数必须为一个数字或函数(如果是函数，则该函数的返回值必须为数字)')
+        ALERT('zoom 方法参数必须为一个数字或函数(如果是函数，则该函数的返回值必须为数字)')
       }
     },
     reset () {

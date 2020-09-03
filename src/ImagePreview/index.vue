@@ -40,6 +40,7 @@
             <div class="divide" />
             <SvgIcon class="icon hover-icon" name="zhongzhi" @click="onResetClick" />
           </slot>
+          <slot name="extraOperate"></slot>
         </div>
         <transition name="fade">
           <div

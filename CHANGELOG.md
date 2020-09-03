@@ -1,3 +1,12 @@
+# [1.5.0](https://github.com/AnaniZhu/vue-img-viewer/compare/v1.4.4...v1.5.0) (2020-09-03)
+
+
+### Features
+
+* 添加底部额外操作插槽 ([7f431e1](https://github.com/AnaniZhu/vue-img-viewer/commit/7f431e13e23ffbc3e73c2e79cdc9a6482cf4cc7d))
+
+
+
 ## [1.4.4](https://github.com/AnaniZhu/vue-img-viewer/compare/v1.4.3...v1.4.4) (2020-08-15)
 
 

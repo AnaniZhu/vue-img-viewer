@@ -271,6 +271,7 @@ export default {
 | :--- | --- | --- |
 | `default` | -  | 插槽模式下可用，可传入任意 `dom` 结构，会自动识别其内部 `img` 标签并添加对应事件
 | `operate` | - | 自定义底部操作栏
+| `extraOperate` | - | 在已有底部操作的后面添加额外操作
 | `loading` |`loading: boolean`| 自定义 loading，该插槽只能有一个根元素。
 
 

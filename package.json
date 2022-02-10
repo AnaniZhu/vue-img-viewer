@@ -70,7 +70,7 @@
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.3",
     "import-http": "^0.3.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "sass": "^1.22.3",
     "sass-loader": "^7.1.0",
